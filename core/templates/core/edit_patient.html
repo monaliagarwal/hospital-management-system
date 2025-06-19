@@ -1,0 +1,142 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    body {
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-container {
+        max-width: 650px;
+        margin: 60px auto;
+        background-color: #ffffff;
+        padding: 40px;
+        border-radius: 18px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 35px;
+        font-weight: 700;
+        color: #2c3e50;
+        position: relative;
+    }
+
+    .form-container h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background-color: #3498db;
+        border-radius: 2px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: block;
+        color: #34495e;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        font-size: 15px;
+        border: 1px solid #ccc;
+        width: 100%;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 6px rgba(52, 152, 219, 0.3);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 90px;
+        max-height: 160px;
+    }
+
+    .btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 12px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #2980b9;
+        border: none;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #2471a3;
+    }
+
+    .btn-secondary {
+        background-color: #7f8c8d;
+        border: none;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #636e72;
+    }
+
+    .text-danger {
+        color: #e74c3c;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .form-icon {
+        margin-right: 8px;
+        color: #2980b9;
+    }
+</style>
+
+<div class="form-container">
+    <h2><i class="fas fa-user-edit form-icon"></i> Edit Patient Details</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <div class="text-danger">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Update</button>
+            <a href="{% url 'patient_list' %}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

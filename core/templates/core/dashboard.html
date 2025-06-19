@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<style>
+    .card-summary {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f8f9fa;
+        transition: 0.3s ease;
+    }
+
+    .card-summary:hover {
+        transform: scale(1.02);
+    }
+
+    .recent-heading {
+        font-size: 22px;
+        font-weight: 600;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .table th {
+        background-color: #f0f0f0;
+    }
+</style>
+
+<h2 class="mb-4">Dashboard</h2>
+<p class="text-muted">Welcome to the Hospital Management System 👩‍⚕️</p>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card-summary text-bg-primary text-white">
+            <h5>Total Patients</h5>
+            <h3>{{ patient_count }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-summary text-bg-success text-white">
+            <h5>Total Doctors</h5>
+            <h3>{{ doctor_count }}</h3>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-summary text-bg-warning text-dark">
+            <h5>Total Appointments</h5>
+            <h3>{{ appointment_count }}</h3>
+        </div>
+    </div>
+</div>
+
+<div class="recent-heading">Recent Appointments</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.patient.name }}</td>
+            <td>{{ appointment.doctor.name }}</td>
+            <td>{{ appointment.appointment_date }}</td>
+            <td>{{ appointment.appointment_time }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">No appointments found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

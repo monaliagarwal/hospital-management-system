@@ -1,0 +1,86 @@
+<!-- core/templates/core/appointment_list.html -->
+{% extends 'core/base.html' %}
+{% block content %}
+<style>
+    .container-custom {
+        max-width: 900px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+        color: #333;
+    }
+    .table thead th {
+        background-color: #f0f0f0;
+        color: #333;
+        text-align: center;
+    }
+    .table td, .table th {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+    .btn-sm {
+        padding: 5px 12px;
+        font-size: 13px;
+        border-radius: 5px;
+    }
+    .btn-warning {
+        background-color: #ffc107;
+        border: none;
+        color: #000;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+</style>
+
+<div class="container-custom">
+    <h2>Appointments</h2>
+    <div class="text-end mb-3">
+        <a href="{% url 'add_appointment' %}" class="btn btn-primary">+ Add Appointment</a>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in appointments %}
+            <tr>
+                <td>{{ app.patient.name }}</td>
+                <td>{{ app.doctor.name }}</td>
+                <td>{{ app.appointment_date }}</td>
+                <td>{{ app.appointment_time }}</td>
+                <td>{{ app.status }}</td>
+                <td>
+                    <a href="{% url 'edit_appointment' app.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'delete_appointment' app.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No appointments found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

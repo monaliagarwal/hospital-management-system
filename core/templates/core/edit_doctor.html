@@ -1,0 +1,66 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #e8f0fe;
+    }
+
+    .form-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 35px;
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #1a237e;
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .btn-custom {
+        background-color: #1a73e8;
+        border: none;
+        color: #fff;
+        padding: 10px 25px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+
+    .btn-custom:hover {
+        background-color: #0c47a1;
+    }
+
+    .icon-title i {
+        font-size: 28px;
+        margin-right: 10px;
+        color: #1a237e;
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="icon-title"><i class="bi bi-pencil-square"></i> Edit Doctor Information</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-custom">
+                <i class="bi bi-save2-fill"></i> Update Doctor
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
